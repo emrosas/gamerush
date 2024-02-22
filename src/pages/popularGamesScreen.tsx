@@ -1,8 +1,16 @@
+import { useEffect } from "react";
+import GameCard from "../components/GameCard";
 import { useGamesStore } from "../store";
 
 function PopularGamesScreen() {
   const games = useGamesStore((state) => state.games);
   const fetchGames = useGamesStore((state) => state.fetchGames);
+  const loading = useGamesStore((state) => state.loading);
+  const error = useGamesStore((state) => state.error);
+
+  useEffect(() => {
+    fetchGames();
+  }, [fetchGames]);
 
   return (
     <main className="min-h-screen grid grid-cols-12 gap-6">
@@ -21,9 +29,16 @@ function PopularGamesScreen() {
       </aside>
       <section className="col-span-9 pr-6 py-6">
         <ul>
-          {games.map((game) => (
-            <li key={game.id}>{game.name}</li>
-          ))}
+          {loading ? (
+            <span>Loading...</span>
+          ) : (
+            games.map((game) => <GameCard game={game} />)
+          )}
+          {error && (
+            <span className="text-red-600 uppercase font-semibold">
+              {error}
+            </span>
+          )}
         </ul>
       </section>
     </main>

@@ -1,4 +1,4 @@
-import PopularGamesScreen from "./pages/popularGamesScreen";
+import PopularGamesScreen from "./pages/PopularGamesScreen";
 
 function App() {
   return <PopularGamesScreen />;
