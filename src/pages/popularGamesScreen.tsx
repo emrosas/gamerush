@@ -28,9 +28,9 @@ function PopularGamesScreen() {
         </div>
       </aside>
       <section className="col-span-9 pr-6 py-6">
-        <ul>
+        <ul className="grid grid-cols-3 gap-8">
           {loading ? (
-            <span>Loading...</span>
+            <span className="font-semibold opacity-50">Loading...</span>
           ) : (
             games.map((game) => <GameCard game={game} />)
           )}
