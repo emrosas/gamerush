@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import GameCard from "../components/GameCard";
 import { useGamesStore } from "../store";
+import Card from "../components/Card";
 
-function PopularGamesScreen() {
+function PopularScreen() {
   const games = useGamesStore((state) => state.games);
   const fetchGames = useGamesStore((state) => state.fetchGames);
   const loading = useGamesStore((state) => state.loading);
@@ -32,7 +32,7 @@ function PopularGamesScreen() {
           {loading ? (
             <span className="font-semibold opacity-50">Loading...</span>
           ) : (
-            games.map((game) => <GameCard game={game} />)
+            games.map((game) => <Card game={game} />)
           )}
           {error && (
             <span className="text-red-600 uppercase font-semibold">
@@ -45,4 +45,4 @@ function PopularGamesScreen() {
   );
 }
 
-export default PopularGamesScreen;
+export default PopularScreen;
