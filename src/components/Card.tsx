@@ -1,10 +1,6 @@
-import { Game } from "../store";
+import { Game } from "../types";
 
-interface CardProps {
-  game: Game;
-}
-
-function Card({ game }: CardProps) {
+function Card({ game }: { game: Game }) {
   return (
     <li key={game.id} className="flex flex-col gap-2">
       <img
