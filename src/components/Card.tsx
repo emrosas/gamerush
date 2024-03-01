@@ -9,7 +9,12 @@ function Card({ game }: { game: Game }) {
         alt={game.name}
       />
       <div className="flex justify-between gap-4">
-        <h3 className="font-semibold">{game.name}</h3>
+        <h3
+          className={`font-semibold ${
+            game.name.length > 30 ? "text-sm" : "text-base"
+          }`}>
+          {game.name}
+        </h3>
         <div className="flex gap-2 items-center">
           <div className="size-2 bg-amber-300 opacity-50" />
           <span

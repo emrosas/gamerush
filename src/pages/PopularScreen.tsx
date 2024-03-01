@@ -30,7 +30,7 @@ function PopularScreen() {
       <section className="col-span-9 pr-6 py-6">
         <ul className="grid grid-cols-3 gap-8">
           {isPending ? (
-            <span className="font-semibold opacity-50">Loading...</span>
+            <span className="font-semibold text-green-600">Loading...</span>
           ) : (
             data.map((game: Game) => <Card game={game} key={game.id} />)
           )}
