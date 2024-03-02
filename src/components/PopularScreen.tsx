@@ -1,6 +1,6 @@
 const key = import.meta.env.VITE_APP_RAWG_KEY;
 import { useQuery } from "@tanstack/react-query";
-import Card from "../components/Card";
+import Card from "./Card";
 import { Game } from "../types";
 
 function PopularScreen() {
@@ -14,6 +14,7 @@ function PopularScreen() {
       return data.results;
     },
   });
+
   return (
     <main className="min-h-screen grid grid-cols-12 gap-6">
       <aside className="bg-dark-1 col-span-3 col-start-1 relative">
