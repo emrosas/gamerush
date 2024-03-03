@@ -3,11 +3,16 @@ import { Game } from "../types";
 function Card({ game }: { game: Game }) {
   return (
     <li key={game.id} className="flex flex-col gap-2">
-      <img
-        className="rounded-lg object-cover aspect-video"
-        src={game.background_image}
-        alt={game.name}
-      />
+      {game.background_image === null ? (
+        <div className=" bg-brand-1 bg-opacity-15 h-48 w-full rounded-lg" />
+      ) : (
+        <img
+          className="rounded-lg object-cover aspect-video"
+          src={game.background_image}
+          alt={game.name}
+        />
+      )}
+
       <div className="flex justify-between gap-4">
         <h3
           className={`font-semibold ${
