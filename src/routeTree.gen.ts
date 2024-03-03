@@ -10,83 +10,52 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as GamesImport } from './routes/games'
-import { Route as MainLayoutImport } from './routes/_mainLayout'
-import { Route as MainLayoutIndexImport } from './routes/_mainLayout.index'
-import { Route as GamesGameIdImport } from './routes/games.$gameId'
-import { Route as MainLayoutAboutImport } from './routes/_mainLayout.about'
-import { Route as GamesGamesIdOverviewImport } from './routes/games_.$gamesId.overview'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as MainLayoutImport } from "./routes/_mainLayout";
+import { Route as GameNameImport } from "./routes/$gameName";
+import { Route as MainLayoutIndexImport } from "./routes/_mainLayout.index";
 
 // Create/Update Routes
 
-const GamesRoute = GamesImport.update({
-  path: '/games',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const MainLayoutRoute = MainLayoutImport.update({
-  id: '/_mainLayout',
+  id: "/_mainLayout",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
+
+const GameNameRoute = GameNameImport.update({
+  path: "/$gameName",
+  getParentRoute: () => rootRoute,
+} as any);
 
 const MainLayoutIndexRoute = MainLayoutIndexImport.update({
-  path: '/',
+  path: "/",
   getParentRoute: () => MainLayoutRoute,
-} as any)
-
-const GamesGameIdRoute = GamesGameIdImport.update({
-  path: '/$gameId',
-  getParentRoute: () => GamesRoute,
-} as any)
-
-const MainLayoutAboutRoute = MainLayoutAboutImport.update({
-  path: '/about',
-  getParentRoute: () => MainLayoutRoute,
-} as any)
-
-const GamesGamesIdOverviewRoute = GamesGamesIdOverviewImport.update({
-  path: '/games/$gamesId/overview',
-  getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/_mainLayout': {
-      preLoaderRoute: typeof MainLayoutImport
-      parentRoute: typeof rootRoute
-    }
-    '/games': {
-      preLoaderRoute: typeof GamesImport
-      parentRoute: typeof rootRoute
-    }
-    '/_mainLayout/about': {
-      preLoaderRoute: typeof MainLayoutAboutImport
-      parentRoute: typeof MainLayoutImport
-    }
-    '/games/$gameId': {
-      preLoaderRoute: typeof GamesGameIdImport
-      parentRoute: typeof GamesImport
-    }
-    '/_mainLayout/': {
-      preLoaderRoute: typeof MainLayoutIndexImport
-      parentRoute: typeof MainLayoutImport
-    }
-    '/games/$gamesId/overview': {
-      preLoaderRoute: typeof GamesGamesIdOverviewImport
-      parentRoute: typeof rootRoute
-    }
+    "/$gameName": {
+      preLoaderRoute: typeof GameNameImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_mainLayout": {
+      preLoaderRoute: typeof MainLayoutImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_mainLayout/": {
+      preLoaderRoute: typeof MainLayoutIndexImport;
+      parentRoute: typeof MainLayoutImport;
+    };
   }
 }
 
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren([
-  MainLayoutRoute.addChildren([MainLayoutAboutRoute, MainLayoutIndexRoute]),
-  GamesRoute.addChildren([GamesGameIdRoute]),
-  GamesGamesIdOverviewRoute,
-])
+  GameNameRoute,
+  MainLayoutRoute.addChildren([MainLayoutIndexRoute]),
+]);
 
 /* prettier-ignore-end */

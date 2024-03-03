@@ -1,18 +1,17 @@
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ErrorComponent, ErrorComponentProps } from "@tanstack/react-router";
-
 import { Game } from "../types";
 
-export const Route = createFileRoute("/games/$gamesId/overview")({
-  loader: async ({ params: { gamesId } }) => {
+export const Route = createFileRoute("/$gameName")({
+  loader: async ({ params: { gameName } }) => {
     const response = await fetch(
-      `https://api.rawg.io/api/games?key=${import.meta.env.VITE_APP_RAWG_KEY}&search=${gamesId}&page_size=1`
+      `https://api.rawg.io/api/games?key=${import.meta.env.VITE_APP_RAWG_KEY}&search=${gameName}&page_size=1`
     );
     const data = await response.json();
     return data.results;
   },
-  component: Game,
   errorComponent: GameErrorComponent,
+  component: Game,
 });
 
 export function GameErrorComponent({ error }: ErrorComponentProps) {
@@ -21,22 +20,22 @@ export function GameErrorComponent({ error }: ErrorComponentProps) {
 
 function Game() {
   const data = Route.useLoaderData();
+  console.log(data[0] as Game);
   const game = data[0] as Game;
-
   return (
     <div className="p-6 flex flex-col gap-4">
       <Link
-        to="/games"
-        className=" text-brand-1 hover:text-brand-2 transition-colors duration-75">
-        ← Back to games
+        to="/"
+        className="text-brand-1 hover:text-brand-2 transition-colors duration-75">
+        ← Back to Home
       </Link>
-      <div className="flex gap-4 items-end">
+      <div className="flex flex-col gap-2 items-start">
         <img
           src={game.background_image}
           alt={game.name}
-          className="h-24 rounded-lg object-cover aspect-video shadow-lg shadow-slate-800"
+          className="h-24 aspect-video rounded-lg"
         />
-        <div>
+        <div className="flex flex-col gap-1">
           <span>Selected Game:</span>
           <h2 className="text-2xl font-semibold">{game.name}</h2>
         </div>

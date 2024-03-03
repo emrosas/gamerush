@@ -7,11 +7,6 @@ function Navbar() {
         <Link to="/" className="[&.active]:font-bold [&.active]:text-blue-400">
           Popular
         </Link>
-        <Link
-          to="/about"
-          className="[&.active]:font-bold [&.active]:text-blue-400">
-          Recently Realeased
-        </Link>
       </div>
     </nav>
   );
