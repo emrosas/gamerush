@@ -6,6 +6,8 @@ export interface Game {
   rating: number;
   rating_top: number;
   stores: Stores[];
+  genres: [];
+  tags: [];
 }
 
 export interface Stores {
