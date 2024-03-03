@@ -20,13 +20,13 @@ function Game() {
       <ul>
         {data.map((game: Game) => (
           <li className="text-sm opacity-50 hover:opacity-80">
-            <Link to="/games/$gameId" params={{ gameId: game.name }}>
+            <Link to="/games/$gamesId/overview" params={{ gamesId: game.name }}>
               {game.name}
             </Link>
           </li>
         ))}
       </ul>
-      <Outlet />
+      {/* <Outlet /> */}
     </div>
   );
 }
