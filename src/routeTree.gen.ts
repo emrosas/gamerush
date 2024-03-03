@@ -10,44 +10,64 @@
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root";
-import { Route as MainLayoutImport } from "./routes/_mainLayout";
-import { Route as GameNameImport } from "./routes/$gameName";
-import { Route as MainLayoutIndexImport } from "./routes/_mainLayout.index";
+import { Route as rootRoute } from './routes/__root'
+import { Route as MainLayoutImport } from './routes/_mainLayout'
+import { Route as GameNameImport } from './routes/$gameName'
+import { Route as MainLayoutIndexImport } from './routes/_mainLayout.index'
+import { Route as MainLayoutImdbImport } from './routes/_mainLayout.imdb'
+import { Route as MainLayoutGenresGenreImport } from './routes/_mainLayout.genres.$genre'
 
 // Create/Update Routes
 
 const MainLayoutRoute = MainLayoutImport.update({
-  id: "/_mainLayout",
+  id: '/_mainLayout',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const GameNameRoute = GameNameImport.update({
-  path: "/$gameName",
+  path: '/$gameName',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const MainLayoutIndexRoute = MainLayoutIndexImport.update({
-  path: "/",
+  path: '/',
   getParentRoute: () => MainLayoutRoute,
-} as any);
+} as any)
+
+const MainLayoutImdbRoute = MainLayoutImdbImport.update({
+  path: '/imdb',
+  getParentRoute: () => MainLayoutRoute,
+} as any)
+
+const MainLayoutGenresGenreRoute = MainLayoutGenresGenreImport.update({
+  path: '/genres/$genre',
+  getParentRoute: () => MainLayoutRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/$gameName": {
-      preLoaderRoute: typeof GameNameImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/_mainLayout": {
-      preLoaderRoute: typeof MainLayoutImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/_mainLayout/": {
-      preLoaderRoute: typeof MainLayoutIndexImport;
-      parentRoute: typeof MainLayoutImport;
-    };
+    '/$gameName': {
+      preLoaderRoute: typeof GameNameImport
+      parentRoute: typeof rootRoute
+    }
+    '/_mainLayout': {
+      preLoaderRoute: typeof MainLayoutImport
+      parentRoute: typeof rootRoute
+    }
+    '/_mainLayout/imdb': {
+      preLoaderRoute: typeof MainLayoutImdbImport
+      parentRoute: typeof MainLayoutImport
+    }
+    '/_mainLayout/': {
+      preLoaderRoute: typeof MainLayoutIndexImport
+      parentRoute: typeof MainLayoutImport
+    }
+    '/_mainLayout/genres/$genre': {
+      preLoaderRoute: typeof MainLayoutGenresGenreImport
+      parentRoute: typeof MainLayoutImport
+    }
   }
 }
 
@@ -55,7 +75,11 @@ declare module "@tanstack/react-router" {
 
 export const routeTree = rootRoute.addChildren([
   GameNameRoute,
-  MainLayoutRoute.addChildren([MainLayoutIndexRoute]),
-]);
+  MainLayoutRoute.addChildren([
+    MainLayoutImdbRoute,
+    MainLayoutIndexRoute,
+    MainLayoutGenresGenreRoute,
+  ]),
+])
 
 /* prettier-ignore-end */
