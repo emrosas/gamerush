@@ -1,7 +1,6 @@
 // import PopularScreen from "./pages/PopularScreen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
-// import PopularScreen from "./pages/PopularScreen";
 
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
@@ -21,7 +20,6 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-      {/* <PopularScreen /> */}
     </QueryClientProvider>
   );
 }

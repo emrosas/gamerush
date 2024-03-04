@@ -14,7 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as MainLayoutImport } from './routes/_mainLayout'
 import { Route as GameNameImport } from './routes/$gameName'
 import { Route as MainLayoutIndexImport } from './routes/_mainLayout.index'
-import { Route as MainLayoutImdbImport } from './routes/_mainLayout.imdb'
+import { Route as MainLayoutSearchSearchImport } from './routes/_mainLayout.search.$search'
 import { Route as MainLayoutGenresGenreImport } from './routes/_mainLayout.genres.$genre'
 
 // Create/Update Routes
@@ -34,8 +34,8 @@ const MainLayoutIndexRoute = MainLayoutIndexImport.update({
   getParentRoute: () => MainLayoutRoute,
 } as any)
 
-const MainLayoutImdbRoute = MainLayoutImdbImport.update({
-  path: '/imdb',
+const MainLayoutSearchSearchRoute = MainLayoutSearchSearchImport.update({
+  path: '/search/$search',
   getParentRoute: () => MainLayoutRoute,
 } as any)
 
@@ -56,16 +56,16 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MainLayoutImport
       parentRoute: typeof rootRoute
     }
-    '/_mainLayout/imdb': {
-      preLoaderRoute: typeof MainLayoutImdbImport
-      parentRoute: typeof MainLayoutImport
-    }
     '/_mainLayout/': {
       preLoaderRoute: typeof MainLayoutIndexImport
       parentRoute: typeof MainLayoutImport
     }
     '/_mainLayout/genres/$genre': {
       preLoaderRoute: typeof MainLayoutGenresGenreImport
+      parentRoute: typeof MainLayoutImport
+    }
+    '/_mainLayout/search/$search': {
+      preLoaderRoute: typeof MainLayoutSearchSearchImport
       parentRoute: typeof MainLayoutImport
     }
   }
@@ -76,9 +76,9 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   GameNameRoute,
   MainLayoutRoute.addChildren([
-    MainLayoutImdbRoute,
     MainLayoutIndexRoute,
     MainLayoutGenresGenreRoute,
+    MainLayoutSearchSearchRoute,
   ]),
 ])
 

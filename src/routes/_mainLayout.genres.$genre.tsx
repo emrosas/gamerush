@@ -20,7 +20,7 @@ function GenresErrorComponent({ error }: ErrorComponentProps) {
 }
 
 function Genres() {
-  const data = Route.useLoaderData();
+  const data: [] = Route.useLoaderData();
 
   return (
     <ul className="grid grid-cols-3 gap-6 py-6">

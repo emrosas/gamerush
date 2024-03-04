@@ -1,6 +1,9 @@
 import { Link } from "@tanstack/react-router";
+import { useState } from "react";
 
 function Navbar() {
+  const [search, setSearch] = useState("");
+
   return (
     <nav className="px-6 relative col-span-3 bg-dark-1 flex flex-col">
       <div className="py-6 flex flex-col gap-4 sticky top-0">
@@ -20,6 +23,15 @@ function Navbar() {
           </svg>
           <h1>Gamerush</h1>
         </Link>
+        <form action="">
+          <input
+            className="bg-white bg-opacity-25 rounded-lg text-white p-2 w-full focus:outline-none focus:bg-opacity-30 focus:ring-2 focus:ring-white transition-all duration-75"
+            placeholder="Search..."
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </form>
         <div className="flex flex-col gap-6 mt-8 pl-4">
           <Link
             to="/"
